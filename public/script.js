@@ -1,16 +1,15 @@
-const canvas = document.getElementById('collarCanvas');
-const ctx = canvas.getContext('2d');
-const consultarBtn = document.getElementById('consultar');
-const resultado = document.getElementById('resultado');
+document.addEventListener('DOMContentLoaded', () => {
+  const canvas = document.getElementById('collarCanvas');
+  const ctx = canvas.getContext('2d');
+  const consultarBtn = document.getElementById('consultar');
+  const resultado = document.getElementById('resultado');
 
-const centerX = canvas.width / 2;
-const centerY = canvas.height / 2;
-const radio = 20;
+  const centerX = canvas.width / 2;
+  const centerY = canvas.height / 2;
+  const radio = 20;
 
-// Collar: 4 cuentas izquierda, 4 cuentas derecha
-const cuentasIzq = [];
-const cuentasDer = [];
-
+  const cuentasIzq = [];
+  const cuentasDer = [];
 
 // Ejemplo de Odù mapeado (reemplaza con tus combinaciones reales)
 const odunes = [
@@ -528,59 +527,60 @@ const odunes = [
   { nombre: "Ofun Meji Ogbe", combinacion: "00010111", descripcion: "Ofun Meji Ogbe simboliza cierre de ciclos, transformación y preparación para nuevos comienzos. Enseña desapego, reflexión y renovación ética. Indica que aceptar los cambios con sabiduría permite evolucionar plenamente y alcanzar bienestar integral." }
 ];
 
-
 // Inicializar posiciones de cuentas
-for (let i = 0; i < 4; i++) {
-  cuentasIzq.push({ x: centerX - 100, y: 80 + i * 60, estado: 0 });
-  cuentasDer.push({ x: centerX + 100, y: 80 + i * 60, estado: 0 });
-}
+  for(let i=0;i<4;i++){
+    cuentasIzq.push({x:centerX-100, y:80 + i*60, estado:0});
+    cuentasDer.push({x:centerX+100, y:80 + i*60, estado:0});
+  }
 
-// Dibujar collar
-function dibujarCollar() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  [...cuentasIzq, ...cuentasDer].forEach(c => {
-    ctx.beginPath();
-    ctx.arc(c.x, c.y, radio, 0, Math.PI * 2);
-    ctx.fillStyle = c.estado === 1 ? "#FFD700" : "#228B22";
-    ctx.fill();
-    ctx.strokeStyle = "#FFD700";
-    ctx.lineWidth = 2;
-    ctx.stroke();
+  // Dibujar collar
+  function dibujarCollar(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    [...cuentasIzq,...cuentasDer].forEach(c=>{
+      ctx.beginPath();
+      ctx.arc(c.x,c.y,radio,0,Math.PI*2);
+      ctx.fillStyle = c.estado===1 ? "#FFD700" : "#228B22"; 
+      ctx.fill();
+      ctx.strokeStyle="#FFD700";
+      ctx.lineWidth=2;
+      ctx.stroke();
+    });
+  }
+
+  // Click en cuenta
+  canvas.addEventListener('click',(e)=>{
+    const rect = canvas.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const my = e.clientY - rect.top;
+    [...cuentasIzq,...cuentasDer].forEach(c=>{
+      const dx = mx-c.x;
+      const dy = my-c.y;
+      if(Math.sqrt(dx*dx+dy*dy)<radio){
+        c.estado = c.estado===1?0:1;
+        dibujarCollar();
+      }
+    });
   });
-}
 
-// Click en cuenta para alternar estado
-canvas.addEventListener('click', (e) => {
-  const rect = canvas.getBoundingClientRect();
-  const mx = e.clientX - rect.left;
-  const my = e.clientY - rect.top;
-  [...cuentasIzq, ...cuentasDer].forEach(c => {
-    const dx = mx - c.x;
-    const dy = my - c.y;
-    if (Math.sqrt(dx * dx + dy * dy) < radio) {
-      c.estado = c.estado === 1 ? 0 : 1;
-      dibujarCollar();
+  // Obtener combinación de 8 bits
+  function obtenerCombinacion(){
+    return [...cuentasIzq,...cuentasDer].map(c=>c.estado).join('');
+  }
+
+  // Consultar Odù
+  consultarBtn.addEventListener('click',()=>{
+    const combinacion = obtenerCombinacion();
+    const odun = odunes.find(o=>o.combinacion===combinacion);
+    if(odun){
+      resultado.innerHTML=`<h2>${odun.nombre}</h2><p>${odun.descripcion}</p>`;
+    }else{
+      resultado.innerHTML=`<h2>Sin resultado</h2><p>Esta combinación no coincide con ningún Odù registrado.</p>`;
     }
   });
+
+  // Inicializar
+  dibujarCollar();
 });
 
-// Obtener combinación de 8 bits
-function obtenerCombinacion() {
-  return [...cuentasIzq, ...cuentasDer].map(c => c.estado).join('');
-}
-
-// Consultar Odù exacto
-consultarBtn.addEventListener('click', () => {
-  const combinacion = obtenerCombinacion();
-  const odun = odunes.find(o => o.combinacion === combinacion);
-  if (odun) {
-    resultado.innerHTML = `<h2>${odun.nombre}</h2><p>${odun.descripcion}</p>`;
-  } else {
-    resultado.innerHTML = `<h2>Sin resultado</h2><p>Esta combinación no coincide con ningún Odù registrado.</p>`;
-  }
-});
-
-// Inicializar
-dibujarCollar();
 
 
