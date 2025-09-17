@@ -3,10 +3,10 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Servir archivos estáticos (index.html, script.js, style.css, etc.)
+// Servir archivos estáticos de /public
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Cualquier ruta desconocida redirige a index.html
+// Servir index.html para cualquier ruta (útil si expandes la app)
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
