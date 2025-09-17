@@ -1,13 +1,16 @@
 const express = require('express');
+const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.static('public'));
+// Servir archivos estÃ¡ticos (index.html, script.js, style.css, etc.)
+app.use(express.static(path.join(__dirname, 'public')));
 
-const odunes = require('./data/odun.json'); // Debe incluir combinaciones de cuentas para cada Odù
-
-app.get('/odun', (req, res) => {
-  res.json(odunes);
+// Cualquier ruta desconocida redirige a index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.listen(PORT, () => console.log(`Servidor corriendo en puerto ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+});
