@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Consulta de Orula</title>
+<style>
+/* Reset básico */
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { height:100%; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+
+/* Fondo */
+body {
+  background: linear-gradient(135deg, #003300, #001100);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+/* Contenedor tipo app */
+.app-card {
+  background: #0b0b0b;
+  border-radius: 25px;
+  padding: 40px 30px;
+  width: 600px;
+  max-width: 95%;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+  border: 3px solid #228B22;
+  text-align:center;
+}
+
+/* Título */
+.app-card h1 {
+  font-size: 2em;
+  color: #FFD700;
+  margin-bottom: 25px;
+  text-shadow: 2px 2px 6px #228B22;
+}
+
+/* Canvas */
+canvas {
+  background: #111;
+  border-radius: 20px;
+  margin: 20px auto;
+  display: block;
+  cursor: pointer;
+  border: 3px solid #FFD700;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+}
+
+/* Botón */
+button {
+  padding: 12px 35px;
+  font-size: 18px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(45deg, #228B22, #32CD32);
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+}
+button:hover {
+  background: linear-gradient(45deg, #32CD32, #7CFC00);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.7);
+}
+
+/* Resultado */
+#resultado {
+  margin-top: 25px;
+  padding: 20px;
+  border-radius: 15px;
+  background: rgba(255,255,255,0.05);
+  border: 2px solid #FFD700;
+  color: #FFD700;
+  text-shadow: 1px 1px 5px #228B22;
+  font-size: 18px;
+  min-height: 100px;
+  transition: all 0.3s ease;
+}
+
+#resultado h2 {
+  margin-bottom: 10px;
+  font-size: 1.8em;
+}
+#resultado p {
+  font-size: 1.1em;
+  line-height: 1.5;
+}
+
+/* Responsive */
+@media (max-width:650px){
+  .app-card { width:90%; padding:30px 20px; }
+  canvas { width:100%; height:300px; }
+}
+</style>
+</head>
+<body>
+  <div class="app-card">
+    <h1>Consulta Interactiva a Orula</h1>
+    <canvas id="collarCanvas" width="500" height="400"></canvas>
+    <button id="consultar">Consultar Odù</button>
+    <div id="resultado"></div>
+  </div>
+
+<script src="script.js"></script>
+</body>
+</html>
