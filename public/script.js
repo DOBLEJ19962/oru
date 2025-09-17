@@ -214,7 +214,6 @@ const odunes = [
   { nombre: "Irosun Meji Ogbe", combinacion: "11110010", descripcion: "Irosun Meji Ogbe simboliza advertencia y guía. Enseña prudencia, ética y reflexión. Indica que la preparación y la sabiduría aseguran seguridad y oportunidades de éxito." },
   // 100
   { nombre: "Owonrin Meji Ogbe", combinacion: "00001110", descripcion: "Owonrin Meji Ogbe representa acción y adaptabilidad guiadas por ética. Enseña planificación, flexibilidad y esfuerzo consciente. Indica que la correcta ejecución de acciones asegura progreso y superación de obstáculos." },
-  const odunes = [
   // 101
   { nombre: "Obara Meji Ogbe", combinacion: "11100010", descripcion: "Obara Meji Ogbe representa palabra sabia y comunicación estratégica. Enseña liderazgo, ética y persuasión. Indica que expresarse con claridad y justicia abre caminos de éxito, relaciones positivas y crecimiento social." },
   // 102
@@ -583,4 +582,5 @@ consultarBtn.addEventListener('click', () => {
 
 // Inicializar
 dibujarCollar();
+
 
