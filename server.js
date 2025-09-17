@@ -6,8 +6,8 @@ const PORT = process.env.PORT || 3000;
 // Servir archivos estáticos desde public
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Forzar que cualquier ruta cargue index.html (para SPA)
-app.get('/*', (req, res) => {
+// Cualquier otra ruta retorna index.html (SPA)
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
